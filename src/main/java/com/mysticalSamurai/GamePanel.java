@@ -36,7 +36,6 @@ public class GamePanel extends JPanel implements ActionListener {
     int appleY;
     char direction = 'R'; // R L U D
     boolean running = false;
-    boolean directionChanged = false;
     Timer timer;
     Random random;
     BufferedImage image;
@@ -124,9 +123,8 @@ public class GamePanel extends JPanel implements ActionListener {
 
     public void checkCollisions() {
         for (int i = bodyParts; i > 0; i--) {
-            if (x[0] == x[i] && y[0] == y[i] && !directionChanged) {
+            if (x[0] == x[i] && y[0] == y[i]) {
                 running = false;
-                directionChanged = false;
             }
         }
         if (x[0] < 0 || x[0] > SCREEN_WIDTH) {
@@ -188,7 +186,6 @@ public class GamePanel extends JPanel implements ActionListener {
                     }
                     break;
             }
-            directionChanged = true;
         }
     }
 
