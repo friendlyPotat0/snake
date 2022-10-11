@@ -28,15 +28,15 @@ public class GamePanel extends JPanel implements ActionListener {
     static final int UNIT_SIZE = 25; // How big we want the apples to be
     static final int GAME_UNITS = (SCREEN_WIDTH * SCREEN_HEIGHT) / (UNIT_SIZE * UNIT_SIZE);
     static final int DELAY = 50; // Game speed
-    final int x[] = new int[GAME_UNITS];
-    final int y[] = new int[GAME_UNITS];
+    int x[];
+    int y[];
     int bodyParts = 6; // Initial body parts of snake
     int applesEaten;
     int appleX; // x coordinate of apple [random]
     int appleY;
-    char direction = 'R'; // R L U D
+    char direction; // R L U D
     boolean running = false;
-    Timer timer;
+    Timer timer = new Timer(DELAY, this);
     Random random;
     BufferedImage image;
 
@@ -51,8 +51,11 @@ public class GamePanel extends JPanel implements ActionListener {
 
     public void startGame() {
         newApple();
+        applesEaten = 0;
+        x = new int[GAME_UNITS];
+        y = new int[GAME_UNITS];
+        direction = 'R'; // R L U D
         running = true;
-        timer = new Timer(DELAY, this);
         timer.start();
     }
 
@@ -140,12 +143,18 @@ public class GamePanel extends JPanel implements ActionListener {
 
     public void gameOver(Graphics2D g2) {
         g2.setPaint(Color.red);
-        g2.setFont(new Font("Rubik", Font.BOLD, 40));
+        
+        g2.setFont(new Font("SF Atarian System", Font.BOLD, 40));
         FontMetrics fontMetrics = getFontMetrics(g2.getFont());
-        g2.drawString("Score: " + applesEaten, (SCREEN_WIDTH - fontMetrics.stringWidth("Score: " + applesEaten)) / 2, g2.getFont().getSize());
-        g2.setFont(new Font("Rubik", Font.BOLD, 75));
+        g2.drawString("Score: " + applesEaten, (SCREEN_WIDTH - fontMetrics.stringWidth("Score: " + applesEaten)) / 2, g2.getFont().getSize() + 10);
+        
+        g2.setFont(new Font("DPComic", Font.BOLD, 75));
         fontMetrics = getFontMetrics(g2.getFont());
         g2.drawString("Game Over", (SCREEN_WIDTH - fontMetrics.stringWidth("Game Over")) / 2, SCREEN_HEIGHT / 2);
+        
+        g2.setFont(new Font("SF Atarian System", Font.BOLD, 25));
+        fontMetrics = getFontMetrics(g2.getFont());
+        g2.drawString("[ Press enter to try again ]", (SCREEN_WIDTH - fontMetrics.stringWidth("[ Press enter to try again ]")) / 2, (SCREEN_HEIGHT / 2) + g2.getFont().getSize() + 10);
     }
 
     @Override
@@ -184,6 +193,9 @@ public class GamePanel extends JPanel implements ActionListener {
                     if (direction != 'L') {
                         direction = 'R';
                     }
+                    break;
+                case KeyEvent.VK_ENTER:
+                    startGame();
                     break;
             }
         }
