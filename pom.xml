@@ -3,7 +3,7 @@
     <groupId>com.mysticalSamurai</groupId>
     <artifactId>snake</artifactId>
     <packaging>jar</packaging>
-    <version>1.0.0</version>
+    <version>0.2.0</version>
     <name>snake</name>
     <url>http://maven.apache.org</url>
 
