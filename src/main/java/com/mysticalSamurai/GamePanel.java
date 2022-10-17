@@ -30,7 +30,7 @@ public class GamePanel extends JPanel implements ActionListener {
     static final int DELAY = 50; // Game speed
     int x[];
     int y[];
-    int bodyParts = 6; // Initial body parts of snake
+    int bodyParts; // Initial body parts of snake
     int applesEaten;
     int appleX; // x coordinate of apple [random]
     int appleY;
@@ -51,6 +51,7 @@ public class GamePanel extends JPanel implements ActionListener {
 
     public void startGame() {
         newApple();
+        bodyParts = 6;
         applesEaten = 0;
         x = new int[GAME_UNITS];
         y = new int[GAME_UNITS];
